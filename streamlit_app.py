@@ -6,6 +6,9 @@ import os
 
 st.write(f"TensorFlow version: {tf.__version__}")
 
+# Verificar y listar archivos en la carpeta actual
+st.write("Archivos en la carpeta actual:", os.listdir("."))
+
 # Ruta directa al archivo .keras en la misma carpeta que el script
 modelo_path = 'mobilenet_v2_model2.keras'
 
@@ -15,7 +18,7 @@ if os.path.exists(modelo_path):
         model = tf.keras.models.load_model(modelo_path)
         st.success("Modelo cargado correctamente.")
     except Exception as e:
-        st.error(f"Error al cargar el modelo: {e}")
+        st.error(f"Error al cargar el modelo: {str(e)}")
         model = None
 else:
     st.error("No se encontró el archivo del modelo en la carpeta actual")
