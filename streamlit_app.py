@@ -31,7 +31,8 @@ def download_and_extract_model():
     with zipfile.ZipFile(zip_path, 'r') as zip_ref:
         zip_ref.extractall(extract_folder)
     
-    return os.path.join(extract_folder, 'best_model_local.keras')
+    # Devuelve la ruta a la carpeta del modelo en formato SavedModel
+    return os.path.join(extract_folder, 'best_model_local')
 
 # Descargar y cargar el modelo
 modelo_path = download_and_extract_model()
@@ -41,6 +42,7 @@ if not modelo_path or not os.path.exists(modelo_path):
     st.error("No se encontró el archivo del modelo")
 else:
     try:
+        # Cargar el modelo en formato SavedModel (carpeta)
         model = tf.keras.models.load_model(modelo_path)
         st.success("Modelo cargado correctamente.")
     except Exception as e:
