@@ -4,8 +4,10 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 import os
 
+st.write(f"TensorFlow version: {tf.__version__}")
 
-
+# Verificar y listar archivos en la carpeta actual
+st.write("Archivos en la carpeta actual:", os.listdir("."))
 
 # Ruta directa al archivo .keras en la misma carpeta que el script
 modelo_path = 'mobilenet_v2_model2.keras'
