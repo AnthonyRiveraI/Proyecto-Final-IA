@@ -4,11 +4,6 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 import os
 
-st.write(f"TensorFlow version: {tf.__version__}")
-
-# Verificar y listar archivos en la carpeta actual
-st.write("Archivos en la carpeta actual:", os.listdir("."))
-
 # Ruta directa al archivo .keras en la misma carpeta que el script
 modelo_path = 'mobilenet_v2_model2.keras'
 
@@ -42,4 +37,4 @@ if uploaded_file is not None and model is not None:
     if prediction[0][0] > 0.5:
         st.success('El modelo predice que la imagen es de un **NORMAL**.')
     else:
-        st.success('El modelo predice que la imagen es de un **NEUMONIA**.')
+        st
