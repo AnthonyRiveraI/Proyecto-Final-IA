@@ -7,7 +7,7 @@ import os
 st.write(f"TensorFlow version: {tf.__version__}")
 
 # Ruta directa al archivo .keras en la misma carpeta que el script
-modelo_path = '/workspaces/Proyecto-Final-IA/mobilenet_v2_model2.keras'
+modelo_path = 'best_model_local.keras'
 
 # Verificar si el archivo del modelo existe y cargar el modelo
 if os.path.exists(modelo_path):
@@ -28,7 +28,7 @@ if uploaded_file is not None and model is not None:
     st.image(uploaded_file, width=300, caption="Imagen cargada")
 
     # Preprocesamiento de la imagen para hacer la predicción
-    img = image.load_img(uploaded_file, target_size=(150, 150))
+    img = image.load_img(uploaded_file, target_size=(224, 224))  # Cambiado a (224, 224)
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0) / 255.0
 
