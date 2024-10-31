@@ -4,12 +4,17 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 import os
 
-# Confirmar la versión de TensorFlow
+# Inicializar `session_state` para la imagen subida
+if 'uploaded_file' not in st.session_state:
+    st.session_state['uploaded_file'] = None
+
+# Mostrar la versión de TensorFlow
 st.write(f"TensorFlow version: {tf.__version__}")
 
-# Ruta directa al archivo .keras en la misma carpeta que el script
+# Ruta al modelo
 modelo_path = 'mobilenet_v2_model2.keras'
-# Cargar el modelo solo si existe el archivo
+
+# Cargar el modelo
 if os.path.exists(modelo_path):
     try:
         model = tf.keras.models.load_model(modelo_path)
@@ -20,23 +25,29 @@ if os.path.exists(modelo_path):
 else:
     st.error("No se encontró el archivo del modelo en la carpeta actual")
 
-# Cargar y mostrar la imagen para la predicción
+# Verificación de carga de archivo
 uploaded_file = st.file_uploader("Elige una imagen...", type=["jpg", "jpeg", "png"])
 
-if uploaded_file is not None and model is not None:
+# Permitir predicción si se sube la misma imagen
+if uploaded_file is not None:
+    st.session_state['uploaded_file'] = uploaded_file  # Guardar en `session_state`
+
+if st.session_state['uploaded_file'] is not None and model is not None:
     # Mostrar la imagen subida
-    st.image(uploaded_file, width=300, caption="Imagen cargada")
+    st.image(st.session_state['uploaded_file'], width=300, caption="Imagen cargada")
 
-    # Preprocesar la imagen para el modelo
-    img = image.load_img(uploaded_file, target_size=(224, 224))
-    img_array = image.img_to_array(img)
-    img_array = np.expand_dims(img_array, axis=0) / 255.0
+    # Botón para procesar la predicción
+    if st.button("Realizar predicción"):
+        # Preprocesamiento de la imagen
+        img = image.load_img(st.session_state['uploaded_file'], target_size=(224, 224))
+        img_array = image.img_to_array(img)
+        img_array = np.expand_dims(img_array, axis=0) / 255.0
 
-    # Realizar la predicción
-    prediction = model.predict(img_array)
+        # Realizar la predicción
+        prediction = model.predict(img_array)
 
-    # Mostrar resultados
-    if prediction[0][0] > 0.5:
-        st.success('El modelo predice que la imagen es de un **NORMAL**.')
-    else:
-        st.success('El modelo predice que la imagen es de un **NEUMONIA**.')
+        # Mostrar resultados
+        if prediction[0][0] > 0.5:
+            st.success('El modelo predice que la imagen es de un **NORMAL**.')
+        else:
+            st.success('El modelo predice que la imagen es de un **NEUMONIA**.')
