@@ -12,7 +12,7 @@ st.write(f"TensorFlow version: {tf.__version__}")
 # Descargar y descomprimir el modelo si no existe
 def download_and_extract_model():
     model_url = 'https://dl.dropboxusercontent.com/s/lxb3qm5cdpa9ake5z4q9t/best_model_local.zip?rlkey=z56wewjj51qxk6djzfihi4aq1&st=04u131mj'
-    zip_path = 'best_model.zip'
+    zip_path = 'best_model.keras'
     extract_folder = 'extracted_files'
 
     # Descargar el archivo zip si no existe
