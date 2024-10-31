@@ -7,7 +7,7 @@ import os
 st.write(f"TensorFlow version: {tf.__version__}")
 
 # Ruta directa al archivo .keras en la misma carpeta que el script
-modelo_path = 'best_model_local.keras'
+modelo_path = '/workspaces/Proyecto-Final-IA/mobilenet_v2_model2.keras'
 
 # Verificar si el archivo del modelo existe y cargar el modelo
 if os.path.exists(modelo_path):
